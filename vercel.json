@@ -1,0 +1,8 @@
+{
+  "buildCommand": "pnpm install --prefer-offline && pnpm build",
+  "outputDirectory": "dist",
+  "installCommand": "pnpm install --prefer-offline",
+  "env": {
+    "BUILD_MODE": "prod"
+  }
+}

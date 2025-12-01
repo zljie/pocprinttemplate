@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%
+  }
+
+  .dark {
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%
+  }
+}
+
+
+
+img {
+  object-position: top;
+}
+
+.fixed {
+  position: fixed;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  /* 移动端布局调整 */
+  .ant-layout-sider {
+    position: fixed !important;
+    height: 100vh;
+    left: -200px;
+    z-index: 999;
+    transition: left 0.2s;
+  }
+  
+  .ant-layout-sider.ant-layout-sider-collapsed {
+    left: 0;
+  }
+  
+  .ant-layout-content {
+    margin: 8px !important;
+    padding: 16px !important;
+  }
+  
+  /* 数据表格移动端优化 */
+  .ant-table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .ant-table {
+    min-width: 600px;
+  }
+  
+  /* 表单移动端优化 */
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  /* 搜索和筛选控件 */
+  .ant-input-search,
+  .ant-select {
+    min-width: 120px;
+  }
+  
+  /* 拖拽区域移动端优化 */
+  .draggable-item {
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .draggable-item .ant-input {
+    margin: 8px 0;
+  }
+  
+  /* 模态框移动端适配 */
+  .ant-modal {
+    max-width: 95vw;
+    margin: 10px auto;
+  }
+  
+  .ant-modal-content {
+    padding: 16px;
+  }
+}
+
+/* 平板端优化 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ant-layout-content {
+    padding: 20px;
+  }
+  
+  .ant-table {
+    font-size: 12px;
+  }
+}
+
+/* 高分辨率屏幕优化 */
+@media (min-width: 1400px) {
+  .ant-layout-content {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
