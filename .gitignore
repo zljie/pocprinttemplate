@@ -9,3 +9,5 @@ web/.next/
 web/.env*
 web/.vercel/
 *.log
+.vercel
+.env*.local

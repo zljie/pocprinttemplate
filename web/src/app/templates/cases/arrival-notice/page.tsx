@@ -13,7 +13,7 @@ export default function ArrivalNoticeCase() {
         fetch("/cases/arrival-notice/template.html"),
         fetch("/cases/arrival-notice/data.json"),
       ]);
-      const [tpl, data] = await Promise.all([tplRes.text(), dataRes.json()]);
+      const [tplDefault, defaultData] = await Promise.all([tplRes.text(), dataRes.json()]);
 
       const s = document.createElement("script");
       s.src = "/vendor/handlebars/4.7.8/handlebars.min.js";
@@ -26,8 +26,22 @@ export default function ArrivalNoticeCase() {
           return isNaN(n) ? String(num) : n.toLocaleString("zh-CN", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
         });
         hb.registerHelper("getSpecialIdentity", (id: any) => (id ? String(id) : ""));
+        let tplOverride: string | null = null;
+        try {
+          tplOverride = sessionStorage.getItem("previewTemplate");
+        } catch {}
+        const tpl = tplOverride || tplDefault;
         const template = hb.compile(tpl);
-        const out = template(data);
+        let injected: any = null;
+        try {
+          injected = sessionStorage.getItem("previewData");
+          injected = injected ? JSON.parse(injected) : null;
+        } catch {}
+        const out = template(injected || defaultData);
+        try {
+          sessionStorage.removeItem("previewData");
+          sessionStorage.removeItem("previewTemplate");
+        } catch {}
         setHtml(out);
       };
       document.body.appendChild(s);
@@ -40,7 +54,7 @@ export default function ArrivalNoticeCase() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">模板案例预览：到货通知单</h1>
-        <Link href="/templates/cases" className="btn btn-outline">返回列表</Link>
+        <Link href="/templates" className="btn btn-outline">返回列表</Link>
       </div>
       <div className="card p-4">
         <div className="mb-3 flex justify-end gap-2">

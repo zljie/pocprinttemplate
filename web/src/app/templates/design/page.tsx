@@ -20,6 +20,9 @@ export default function DesignPage() {
   const [previewHtml, setPreviewHtml] = useState<string>("");
   const [api, setApi] = useState<{ getContent: () => string; setContent: (html: string) => void; insertContent: (html: string) => void } | null>(null);
   const [fieldCategory, setFieldCategory] = useState<"header" | "detail" | "summary">("header");
+  const [showJsonModal, setShowJsonModal] = useState<boolean>(false);
+  const [jsonText, setJsonText] = useState<string>("");
+  const [jsonError, setJsonError] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -30,6 +33,7 @@ export default function DesignPage() {
       const [tplHtml, json] = await Promise.all([tplRes.text(), dataRes.json()]);
       setInitial(extractContent(tplHtml));
       setData(json);
+      try { setJsonText(JSON.stringify(json, null, 2)); } catch {}
     })();
   }, []);
 
@@ -54,6 +58,24 @@ export default function DesignPage() {
     const tpl = hb.compile(html);
     const out = tpl(data);
     setPreviewHtml(out);
+  };
+
+  const openCasesPreview = () => {
+    setJsonError("");
+    setShowJsonModal(true);
+  };
+
+  const submitPreviewJson = () => {
+    try {
+      const parsed = JSON.parse(jsonText || "{}");
+      sessionStorage.setItem("previewData", JSON.stringify(parsed));
+      const tpl = api ? api.getContent() : initial;
+      if (tpl) sessionStorage.setItem("previewTemplate", tpl);
+      setShowJsonModal(false);
+      window.location.href = "/templates/cases/arrival-notice";
+    } catch (e: any) {
+      setJsonError(String(e?.message || e));
+    }
   };
 
   const tokens = () => {
@@ -84,11 +106,14 @@ export default function DesignPage() {
           <TinyEditor initial={initial} onReady={(editorApi) => setApi(editorApi)} />
           <div className="mt-3 flex justify-end gap-2">
             <button className="btn btn-outline" onClick={() => alert("已保存到本地存储")}>保存</button>
-            <button className="btn btn-primary" onClick={renderPreview}>预览渲染当前内容</button>
+            <button className="btn btn-primary" onClick={openCasesPreview}>预览渲染当前内容</button>
           </div>
           {previewHtml && (
             <div className="mt-4">
               <h2 className="font-medium mb-3">渲染预览</h2>
+              <div className="mb-3 flex justify-end gap-2">
+                <button className="btn btn-outline" onClick={() => window.print()}>打印</button>
+              </div>
               <div className="card p-4">
                 <div dangerouslySetInnerHTML={{ __html: previewHtml }} />
               </div>
@@ -119,6 +144,21 @@ export default function DesignPage() {
           </ul>
         </aside>
       </div>
+
+      {showJsonModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="card p-4 w-[800px] max-w-[95vw] bg-white">
+            <h2 className="font-medium mb-3">提交预览数据（JSON）</h2>
+            <div className="text-xs text-slate-500 mb-2">默认已填充示例数据，需符合模板字段结构</div>
+            <textarea className="w-full h-80 border rounded p-2 font-mono text-xs" value={jsonText} onChange={(e) => setJsonText(e.target.value)} />
+            {jsonError && <div className="text-red-600 text-xs mt-2">{jsonError}</div>}
+            <div className="mt-3 flex justify-end gap-2">
+              <button className="btn btn-outline" onClick={() => setShowJsonModal(false)}>取消</button>
+              <button className="btn btn-primary" onClick={submitPreviewJson}>提交并预览</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

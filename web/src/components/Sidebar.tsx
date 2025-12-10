@@ -4,10 +4,8 @@ import { usePathname } from "next/navigation";
 import { FolderKanban, Database, FileSpreadsheet } from "lucide-react";
 
 const items = [
-  { href: "/", label: "打印模板", icon: FileSpreadsheet },
   { href: "/templates", label: "打印模板管理", icon: FolderKanban },
   { href: "/data-sources", label: "数据源管理", icon: Database },
-  { href: "/templates/cases", label: "模板案例", icon: FileSpreadsheet },
 ];
 
 export default function Sidebar() {
