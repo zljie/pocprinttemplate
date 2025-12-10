@@ -15,17 +15,23 @@ export default function ArrivalNoticeCase() {
       ]);
       const [tpl, data] = await Promise.all([tplRes.text(), dataRes.json()]);
 
-      const mod = await import("handlebars/dist/handlebars.js").catch(() => import("handlebars"));
-      const hb: any = (mod as any).default || mod;
-      hb.registerHelper("formatNumber", (num: any) => {
-        if (num === null || num === undefined) return "";
-        const n = Number(num);
-        return isNaN(n) ? String(num) : n.toLocaleString("zh-CN", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-      });
-      hb.registerHelper("getSpecialIdentity", (id: any) => (id ? String(id) : ""));
-      const template = hb.compile(tpl);
-      const out = template(data);
-      setHtml(out);
+      const s = document.createElement("script");
+      s.src = "/vendor/handlebars/4.7.8/handlebars.min.js";
+      s.onload = () => {
+        if (!window.Handlebars) return;
+        const hb = window.Handlebars;
+        hb.registerHelper("formatNumber", (num: any) => {
+          if (num === null || num === undefined) return "";
+          const n = Number(num);
+          return isNaN(n) ? String(num) : n.toLocaleString("zh-CN", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+        });
+        hb.registerHelper("getSpecialIdentity", (id: any) => (id ? String(id) : ""));
+        const template = hb.compile(tpl);
+        const out = template(data);
+        setHtml(out);
+      };
+      document.body.appendChild(s);
+      return () => { document.body.removeChild(s); };
     };
     load();
   }, []);

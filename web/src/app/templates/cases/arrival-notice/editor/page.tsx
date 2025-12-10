@@ -35,8 +35,15 @@ export default function ArrivalNoticeEditor() {
   const renderPreview = async () => {
     const html = api ? api.getContent() : initial;
     if (!html || !data) return;
-    const mod = await import("handlebars/dist/handlebars.js").catch(() => import("handlebars"));
-    const hb: any = (mod as any).default || mod;
+    if (!window.Handlebars) {
+      await new Promise<void>((resolve) => {
+        const s = document.createElement("script");
+        s.src = "/vendor/handlebars/4.7.8/handlebars.min.js";
+        s.onload = () => resolve();
+        document.body.appendChild(s);
+      });
+    }
+    const hb = window.Handlebars!;
     hb.registerHelper("formatNumber", (num: any) => {
       if (num === null || num === undefined) return "";
       const n = Number(num);
