@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { paramObjects } from "@/data/mock";
 import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
 import Link from "next/link";
+import { Search } from "lucide-react";
 
 type SelectedItem = { id: string; alias: string; isCollection: boolean };
 
@@ -72,8 +73,8 @@ export default function DataSourceEditPage() {
         </div>
       </section>
 
-      <div className="grid grid-cols-2 gap-4">
-        {/* 左侧：参数对象选择区 */}
+      <div className="space-y-4">
+        {/* 参数对象选择区 */}
         <section className="card p-4">
           <h2 className="font-medium mb-3">参数对象筛选</h2>
           <div className="grid grid-cols-3 gap-3 mb-3">
@@ -94,8 +95,9 @@ export default function DataSourceEditPage() {
                 <option key={v}>{v}</option>
               ))}
             </select>
-            <div className="flex gap-2">
-              <input className="input" placeholder="请输入编码或名称" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+            <div className="input-suffix">
+              <input placeholder="请输入编码或名称" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+              <Search className="suffix w-4 h-4" />
             </div>
           </div>
 
@@ -132,7 +134,7 @@ export default function DataSourceEditPage() {
           </table>
         </section>
 
-        {/* 右侧：已选参数对象配置区 */}
+        {/* 已选参数对象配置区 */}
         <section className="card p-4">
           <h2 className="font-medium mb-3">已选参数对象</h2>
           <DragDropContext onDragEnd={onDragEnd}>
@@ -185,42 +187,9 @@ export default function DataSourceEditPage() {
         </section>
       </div>
 
-      {/* 底部：对象详情编辑器 */}
-      <section className="card p-4">
+      {/* 对象详情编辑器（暂时隐藏） */}
+      <section className="card p-4 hidden">
         <h2 className="font-medium mb-3">对象详情</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <div className="badge mb-2">基本信息</div>
-            <div className="text-sm text-slate-600">对象描述、版本、创建时间等</div>
-          </div>
-          <div>
-            <div className="badge mb-2">业务字段</div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>类别</th>
-                  <th>字段类型</th>
-                  <th>编码</th>
-                  <th>名称</th>
-                  <th>必填</th>
-                  <th>集合</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paramObjects[0].fields.map((f, i) => (
-                  <tr key={i}>
-                    <td>{f.category}</td>
-                    <td>{f.type}</td>
-                    <td>{f.code}</td>
-                    <td>{f.name}</td>
-                    <td>{f.required ? "是" : "否"}</td>
-                    <td>{f.collection ? "是" : "否"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
       </section>
     </div>
   );

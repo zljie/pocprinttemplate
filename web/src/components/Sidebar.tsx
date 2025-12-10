@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FolderKanban, Database, FileSpreadsheet } from "lucide-react";
+import { FolderKanban, Database, ListChecks } from "lucide-react";
 
 const items = [
   { href: "/templates", label: "打印模板管理", icon: FolderKanban },
   { href: "/data-sources", label: "数据源管理", icon: Database },
+  { href: "/tasks", label: "项目任务", icon: ListChecks },
 ];
 
 export default function Sidebar() {
