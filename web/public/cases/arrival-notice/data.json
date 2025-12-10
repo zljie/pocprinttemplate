@@ -1,0 +1,118 @@
+{
+  "header": {
+    "title": "报表模板到货通知单",
+    "formKey": "MM_ArrivalNotice",
+    "documentNumber": "PO-2024-001",
+    "createDate": "2025-12-10",
+    "barCode": "1234567890123",
+    "CompanyCodeName": "某某制造有限公司",
+    "VendorID": "VENDOR001",
+    "VendorName": "供应商有限公司"
+  },
+  "tables": {
+    "EMM_ArrivalNoticeDetail": {
+      "name": "EMM_ArrivalNoticeDetail",
+      "caption": "明细表",
+      "records": [
+        {
+          "OID": "ID001",
+          "POID": "ID001",
+          "SOID": "ID001",
+          "VERID": "ID001",
+          "DVERID": "ID001",
+          "Sequence": 1,
+          "DocumentNumber": 100,
+          "VendorID": "VENDOR001",
+          "MaterialID": "ID001",
+          "ShortText": "示例描述文本",
+          "BaseUnitID": "ID001",
+          "Quantity": 100,
+          "UnitID": "ID001",
+          "BaseQuantity": 100,
+          "ArrivalNoticeNum": 100,
+          "StorageLocationID": "ID001",
+          "PlantID": "ID001",
+          "Notes": "备注",
+          "VendorName": "供应商有限公司",
+          "MassUnit": "EA",
+          "PlantCode": "CODE01",
+          "PurchasingGroupName": "采购组名称",
+          "PurchasingGroupID": "ID001",
+          "PurOrganizationName": "采购组织名称",
+          "PurOrganizationID": "ID001",
+          "MaterialGroupName": "物料组名称",
+          "CompanyCodeName": "公司名称",
+          "ItemCategoryID": "ID001",
+          "StorageLocationName": "存储地点名称",
+          "DeliveryCompleted": "交货已完成",
+          "OrderCategory": "订单类别",
+          "MM_DocumentTypesID": "ID001",
+          "Sequences": "0001",
+          "AcctAssignmentCatID": "ID001",
+          "OpenQuantity": 100,
+          "Reservation": "预留凭证号",
+          "ReservationRow": "预留行项目",
+          "MaterialGroupCode": "CODE01"
+        },
+        {
+          "OID": "ID001",
+          "POID": "ID001",
+          "SOID": "ID001",
+          "VERID": "ID001",
+          "DVERID": "ID001",
+          "Sequence": 2,
+          "DocumentNumber": 100,
+          "VendorID": "VENDOR001",
+          "MaterialID": "MAT002",
+          "ShortText": "塑料制品 规格型号B",
+          "BaseUnitID": "ID001",
+          "Quantity": 100,
+          "UnitID": "ID001",
+          "BaseQuantity": 100,
+          "ArrivalNoticeNum": 100,
+          "StorageLocationID": "ID001",
+          "PlantID": "ID001",
+          "Notes": "备注",
+          "VendorName": "供应商有限公司",
+          "MassUnit": "EA",
+          "PlantCode": "CODE01",
+          "PurchasingGroupName": "采购组名称",
+          "PurchasingGroupID": "ID001",
+          "PurOrganizationName": "采购组织名称",
+          "PurOrganizationID": "ID001",
+          "MaterialGroupName": "物料组名称",
+          "CompanyCodeName": "公司名称",
+          "ItemCategoryID": "ID001",
+          "StorageLocationName": "存储地点名称",
+          "DeliveryCompleted": "交货已完成",
+          "OrderCategory": "订单类别",
+          "MM_DocumentTypesID": "ID001",
+          "Sequences": "0002",
+          "AcctAssignmentCatID": "ID001",
+          "OpenQuantity": 100,
+          "Reservation": "预留凭证号",
+          "ReservationRow": "预留行项目",
+          "MaterialGroupCode": "CODE01"
+        }
+      ]
+    },
+    "EMM_ArrivalNoticeCollect": {
+      "name": "EMM_ArrivalNoticeCollect",
+      "caption": "汇总表",
+      "records": [
+        {
+          "ArrivalNoticeNum": 100
+        },
+        {
+          "ArrivalNoticeNum": 193
+        }
+      ]
+    }
+  },
+  "summary": {
+    "totalQuantity": 293,
+    "totalItems": 2,
+    "allSum": 293,
+    "ArrivalNoticeNumSum": 293
+  }
+}

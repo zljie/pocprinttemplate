@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8fafc;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-slate-800;
+}
+
+.card {
+  @apply bg-white shadow-card rounded-md border border-slate-200;
+}
+
+.table {
+  @apply w-full border-collapse text-sm;
+}
+
+.table th {
+  @apply text-left bg-slate-50 border border-slate-200 px-3 py-2 font-medium;
+}
+
+.table td {
+  @apply border border-slate-200 px-3 py-2;
+}
+
+.input {
+  @apply w-full border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500;
+}
+
+.select {
+  @apply w-full border border-slate-300 rounded-md px-3 py-2 text-sm bg-white;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium border shadow-sm transition-colors;
+}
+
+.btn-primary {
+  @apply bg-brand-600 text-white border-brand-600 hover:bg-brand-700;
+}
+
+.btn-outline {
+  @apply bg-white text-slate-700 border-slate-300 hover:bg-slate-50;
+}
+
+.badge {
+  @apply inline-flex items-center rounded-full bg-slate-100 text-slate-700 px-2 py-1 text-xs font-medium border border-slate-200;
+}
+
+/* Sidebar and nav styles to match image */
+.sidebar {
+  @apply bg-gradient-to-b from-navy-900 to-navy-800 text-slate-200 w-60;
+}
+.sidebar-header {
+  @apply px-4 py-4 border-b border-white/10;
+}
+.nav-item {
+  @apply flex items-center gap-2 px-3 py-2 rounded-md text-sm text-slate-200/90 hover:bg-white/10;
+}
+.nav-item-active {
+  @apply bg-brand-600 text-white shadow-soft;
+}
+
+/* Top bar */
+.topbar {
+  @apply flex items-center justify-between bg-white rounded-lg border border-slate-200 px-4 py-2 mb-4;
+}
+
+/* Search */
+.search {
+  @apply relative w-64;
+}
+.search input {
+  @apply input pl-9 rounded-lg;
+}
+.search .icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400;
+}
+
+/* Buttons */
+.btn-danger { @apply bg-white text-red-600 border-red-300 hover:bg-red-50; }
+
+/* Status pill */
+.status { @apply inline-flex items-center rounded-full px-2 py-1 text-xs font-medium border; }
+.status-enabled { @apply bg-green-50 text-green-700 border-green-200; }
+.status-disabled { @apply bg-slate-100 text-slate-600 border-slate-200; }
+
+.input-suffix { position: relative; }
+.input-suffix input { @apply input w-full h-10 pr-12 text-base; }
+.input-suffix .suffix { @apply absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm; }
+.field-col { @apply space-y-1; }
+.field-label { @apply text-xs text-slate-600; }

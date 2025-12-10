@@ -1,0 +1,11 @@
+/.DS_Store
+/.env*
+dist/
+coverage/
+**/node_modules/
+**/.next/
+web/node_modules/
+web/.next/
+web/.env*
+web/.vercel/
+*.log

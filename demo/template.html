@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{header.title}}</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm 15mm 50mm 15mm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333333;
+            background: white;
+        }
+        
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #000000;
+        }
+        
+        .company-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .document-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .document-info {
+            margin-top: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .info-item .label {
+            font-weight: 500;
+            color: #606266;
+        }
+        
+        .barcode-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border-radius: 0;
+        }
+        
+        .barcode-label {
+            font-weight: 500;
+        }
+        
+        .barcode-value {
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .vendor-section {
+            margin-bottom: 20px;
+        }
+        
+        .vendor-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .vendor-table td {
+            padding: 8px 12px;
+            border: 1px solid #000000;
+        }
+        
+        .vendor-table .label {
+            width: 100px;
+            font-weight: 500;
+            background: #f5f5f5;
+        }
+        
+        .vendor-table .spacer {
+            width: 50px;
+            border: none;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 11px;
+        }
+        
+        .data-table th,
+        .data-table td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .data-table th {
+            background: #ecf0f1;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .data-table tr:hover {
+            background: #f0f0f0;
+        }
+        
+        .summary-section {
+            margin-top: 20px;
+            border-top: 1px solid #000000;
+            padding-top: 15px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            border: 1px solid #000000;
+            margin-bottom: 5px;
+            border-radius: 0;
+        }
+        
+        .summary-row.total {
+            background: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .summary-row .label {
+            font-weight: 500;
+        }
+        
+        .summary-row .value {
+            font-weight: bold;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .signature-item {
+            font-size: 12px;
+        }
+        
+        @media print {
+            .document-container {
+                max-width: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        <!-- 表头区域 -->
+        <div class="header-section">
+            <div class="company-name">{{header.CompanyCodeName}}</div>
+            <div class="document-title">{{header.title}}</div>
+            
+            <div class="document-info">
+                <div class="info-row">
+                    <div class="info-item">
+                        <span class="label">采购订单编号:</span>
+                        <span class="value">{{header.documentNumber}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">创建日期:</span>
+                        <span class="value">{{header.createDate}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 条形码区域 -->
+        <div class="barcode-section">
+            <span class="barcode-label">条形码:</span>
+            <span class="barcode-value">{{header.barCode}}</span>
+        </div>
+        
+        <!-- 供应商信息 -->
+        <div class="vendor-section">
+            <table class="vendor-table">
+                <tr>
+                    <td class="label">供应商编码:</td>
+                    <td class="value">{{header.VendorID}}</td>
+                    <td class="spacer"></td>
+                    <td class="label">供应商名称:</td>
+                    <td class="value">{{header.VendorName}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- 数据表格 -->
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>行项目</th>
+                    <th>物料编码</th>
+                    <th>描述</th>
+                    <th>计量
+单位</th>
+                    <th>物料组</th>
+                    <th>采购组</th>
+                    <th>订单数量</th>
+                    <th>到货数量</th>
+                    <th>库存地点</th>
+                    <th>工厂</th>
+                    <th>特殊标识</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each tables.EMM_ArrivalNoticeDetail.records}}
+                <tr>
+                    <td>{{this.Sequence}}</td>
+                    <td>{{this.MaterialID}}</td>
+                    <td>{{this.ShortText}}</td>
+                    <td>{{this.MassUnit}}</td>
+                    <td>{{this.MaterialGroupName}}</td>
+                    <td>{{this.PurchasingGroupName}}</td>
+                    <td>{{formatNumber this.Quantity}}</td>
+                    <td>{{formatNumber this.ArrivalNoticeNum}}</td>
+                    <td>{{this.StorageLocationName}}</td>
+                    <td>{{this.PlantCode}}</td>
+                    <td>{{getSpecialIdentity this.ItemCategoryID}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <!-- 汇总区域 -->
+        <div class="summary-section">
+            <div class="summary-row">
+                <span class="label">小计</span>
+                <span class="value">{{formatNumber summary.ArrivalNoticeNumSum}}</span>
+            </div>
+            <div class="summary-row total">
+                <span class="label">合计</span>
+                <span class="value">{{formatNumber summary.allSum}}</span>
+            </div>
+        </div>
+        
+        <!-- 签名区域 -->
+        <div class="signature-section">
+            <div class="signature-item">质检员: ___________</div>
+            <div class="signature-item">保管员: ___________</div>
+        </div>
+    </div>
+    
+    <script>
+        // 格式化数字
+        function formatNumber(num) {
+            if (!num && num !== 0) return '';
+            return parseFloat(num).toLocaleString('zh-CN', {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3
+            });
+        }
+    </script>
+</body>
+</html>
